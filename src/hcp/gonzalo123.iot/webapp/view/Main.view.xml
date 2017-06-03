@@ -1,0 +1,20 @@
+<mvc:View controllerName="gonzalo123.iot.controller.Main" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+          displayBlock="true" xmlns="sap.m">
+    <App>
+        <pages>
+            <Page title="{i18n>title}">
+                <content>
+                    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="nodemcu" frameType="OneByOne">
+                        <tileContent>
+                            <TileContent unit="%">
+                                <content>
+                                    <NumericContent value="{view>/value}" icon="sap-icon://line-charts"/>
+                                </content>
+                            </TileContent>
+                        </tileContent>
+                    </GenericTile>
+                </content>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

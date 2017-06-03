@@ -1,0 +1,16 @@
+{
+  "name": "ws",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gonzalo Ayuso <gonzalo123@gmail.com> (https://gonzalo123.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "cfenv": "^1.0.4",
+    "odata-client": "^0.5.5",
+    "socket.io": "^2.0.1"
+  }
+}

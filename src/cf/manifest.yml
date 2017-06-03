@@ -1,0 +1,7 @@
+---
+applications:
+- name: ws-iot
+  buldpack: nodejs_buildpack
+  memory: 128M
+  disk_quota: 128M
+  command: node server.js
