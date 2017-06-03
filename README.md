@@ -63,7 +63,6 @@ void sendMessage(int value) {
   Serial.print("requesting payload: ");
   Serial.println(url);
 
-  // using HTTP/1.0 enforces a non-chunked response
   clientTLS.print(String("POST ") + url + " HTTP/1.0\r\n" +
                "Host: " + host + "\r\n" +
                "Content-Type: application/json;charset=utf-8\r\n" +
@@ -74,19 +73,15 @@ void sendMessage(int value) {
   Serial.println("request sent");
 
   Serial.println("reply was:");
-  Serial.println("==========");
   while (clientTLS.connected()) {
     String line = clientTLS.readStringUntil('\n');
     Serial.println(line);
   }
-  Serial.println("==========");
 }
 
 void setup() {
   Serial.begin(9600);
   wifiConnect();
-
-  ///sendMessage(20);
 
   delay(10);
 }
