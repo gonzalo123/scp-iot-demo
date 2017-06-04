@@ -1,17 +1,17 @@
 Real Time IoT in the cloud with SAP HCP, Cloud Foundry and WebSockets 
 ======
 
-Nowadays I'm involved with a project based on SAP's Hana Cloud Platform (HCP). Side projects are the best way to mastering new technologies (at least for me) so I want to build something with my arduino stuff. HCP comes whit one IT module. Every cloud platforms have, in one way or another, one IoT module. With HCP the IoT module it's a Hana Database where we can push our IoT values and we're able to retrieve information via oData (the common way with SAP). 
+Nowadays I'm involved with a project based on SAP's Hana Cloud Platform (HCP). Side projects are the best way to mastering new technologies (at least for me) so I want to build something with HCP and my arduino stuff. HCP comes whit one IoT module. In fact every cloud platforms have, in one way or another, one IoT module (Amazon, Azure, ...). With HCP the IoT module it's just a Hana Database where we can push our IoT values and we're able to retrieve information via oData (the common way in SAP). 
 
 It's pretty straightforward to configure the IoT module with the SAP Cloud Platform Cockpit. Every thing can be done with a hana trial account (account.hana.ondemand.com).
 
 ## NodeMcu
 
-I'm going to use a simple circuit with my NodeMcu connected to my wifi network. The prototype is a potentiometer connected to the analog input. 
+First I'm going to use a simple circuit with my NodeMcu connected to my wifi network. The prototype is a potentiometer connected to the analog input. I normally use this this circuit because I can change the value just changing the potentiometer wheel. I know it's not very usefull, but we can easily change it and use a sensor (temperature, humidity, light, ...)
 
 ![Circuit](img/nodemcu.png "NodeMcu")
 
-It will send the percentage (from 0 to 100) of the position of the potentiometer to the cloud. 
+It will send the percentage (from 0 to 100) of the position of the potentiometer directly to the cloud. 
 
 ```c
 #include <ESP8266WiFi.h>
@@ -102,7 +102,7 @@ void loop() {
 
 ### HCP
 
-Hana Cloud Platform allow us to create web application using SAPUI5 easily. It also allow us to create a destination (the way that SAP uses to connect modules) to our IoT module. Also every Hana table can be accessed via oData and we can retrieve the information easily within SAPIUI5
+Hana Cloud Platform allow us to create web applications using SAPUI5 framework easily. It also allow us to create a destination (the way that SAP's cloud uses to connect different modules) to our IoT module. Also every Hana table can be accessed via oData so and we can retrieve the information easily within SAPIUI5
 
 ```js
 onAfterRendering: function () {
@@ -121,6 +121,7 @@ onAfterRendering: function () {
 ```
 
 and display in a view
+
 ```xml
 <mvc:View controllerName="gonzalo123.iot.controller.Main" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
           displayBlock="true" xmlns="sap.m">
@@ -146,9 +147,9 @@ and display in a view
 
 ## Cloud Foundry
 
-The web application (with HCP and SAPUI5) can access to IoT values via oData. We can fetch data again and again, but that's not cool. We want real time updates in the web application. So we need WebSockets. HCP IoT module allow us to us WebSockets to put information, but not get updates. We can connect our IoT to a MQTT server, but here I only want device's uptades. So we're going to create a siple WebSocket server with node and socket.io. This server will be listening to devices updates (again and again with a setInterval) and when it detects a change will emit a broadcast to the WebSocket.
+The web application (with HCP and SAPUI5) can access to IoT values via oData. We can fetch data again and again, but that's not cool. We want real time updates in the web application. So we need WebSockets. HCP IoT module allows us to use WebSockets to put information, but not get updates (afaik. Let me know if I'm wrong). We also can connect our IoT to an existing MQTT server, but in this prototype I only want to use websockets. So we're going to create a simple WebSocket server with node and socket.io. This server will be listening to devices updates (again and again with a setInterval function via oData) and when it detects a change it will emit a broadcast to the WebSocket.
 
-SAP's HCP also allows us to create services with Cloud Foundry. So we'll create our nodejs server here
+SAP's HCP also allows us to create services with Cloud Foundry. So we'll create our nodejs server there
 
 ```js
 var http = require('http'),
