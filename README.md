@@ -1,4 +1,4 @@
-Real Time IoT in the cloud with SAP SCP, Cloud Foundry and WebSockets 
+Real Time IoT in the cloud with SAP's SCP, Cloud Foundry and WebSockets 
 ======
 
 Nowadays I'm involved with a cloud project based on SAP Cloud Platform (SCP). Side projects are the best way to mastering new technologies (at least for me) so I want to build something with SCP and my arduino stuff. SCP comes whit one IoT module. In fact every cloud platforms have, in one way or another, one IoT module (Amazon, Azure, ...). With SCP the IoT module it's just a Hana Database where we can push our IoT values and we're able to retrieve information via oData (the common way in SAP). 
